@@ -1,4 +1,7 @@
 ---
+import '../style/global.css';
+
+import Notification from '../components/Notification.astro';
 ---
 
 <html lang="en">
@@ -10,6 +13,71 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		
+		<main>
+			<div class="head">
+				<h1>Notifications <span class="notificationUnread"> 3</span></h1>
+				<a class="markRead"href="#">Mark all as read</a>
+			</div>
+			<Notification /> 
+			
+		</main>
+		
+
 	</body>
+	<style>
+		body {
+			background: var(--very-light-gray);
+			display: flex;
+			align-items:center;
+			justify-content:center;
+			min-height: 100vh;
+		}
+
+		main {
+			padding: 1rem;
+			background: #fff;
+			border-radius: 7px;
+			box-shadow: 0px 2px 20px rgba(0,0,0,0.05); 
+		}
+
+		.head {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 1.5rem;
+		}
+
+		h1 {
+			font-size: 1.2rem;
+		}
+
+		h1 > span {
+			background: var(--blue-clr);
+			padding: 2px 8px;
+			border-radius: 5px;
+			color: #fff;
+			margin-left: 5px;
+			font-size: 14px;
+			} 
+
+			a {
+				color: var(--dark-gray);
+			}
+
+			a:hover {
+				color: var(--blue-clr)
+			}
+
+			@media(min-width: 800px){
+				main {
+					max-width: 700px;
+				}
+			}
+
+
+	</style>
+	<script>
+		import '../scripts/notification.js';
+	</script>
 </html>

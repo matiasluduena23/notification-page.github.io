@@ -1,0 +1,145 @@
+---
+
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("post")
+
+---
+
+<div class="grid">
+  { allPosts.map(post =>  (
+    <section class={post.data.read ? "read": "unread"}>
+      <div class="card-body">
+        <img class="profile"  src={post.data.image} alt="">
+        <div class="card-info">
+          <div class="card-info-text">
+            <span class="name">{post.data.name}</span>
+            <span class="type">{post.data.type}</span>
+            <span class="message">{post.data.message}</span>
+            <a class="group" href="#">{post.data.group}</a>
+            <span class="error" ></span>
+          </div>
+          <p class="card-info-time">{post.data.time}</p>
+        </div>
+        <figure>
+          {
+            post.data.picture ?
+            <img src={post.data.picture} alt="picture">
+            : <span></span>
+          }
+        </figure>
+      </div>
+      
+      {
+        post.data.inbox ?
+        <p >{post.data.inbox}</p>
+        : <span></span>
+      }
+      
+    </section>
+    ))
+  }
+ 
+</div>
+
+
+<style>
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.7rem;
+    padding: 1rem 4rem 0.5rem 1rem;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 100%;
+    position: relative;
+  }
+
+  section > p {
+    margin-left: 3.5rem;
+    padding: 0.8rem;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+
+  section > p:hover {
+    background: var(--dark-gray);
+  }
+
+  .card-body {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .profile {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+  }
+
+  .name {
+    font-weight: 800;
+    color: var(--very-dark-blue);
+  }
+
+  .type {
+    color: var(--dark-gray);
+  }
+
+  .message {
+    color: var(--dark-blue);
+    margin-right: 3px;
+    font-weight: 800;
+  }
+
+  .name:hover,
+  .message:hover {
+    cursor: pointer;
+    color: var(--blue-clr);
+  }
+
+  .group {
+    color: var(--blue-clr);
+    font-weight: 800; 
+  }
+
+  .card-info-time {
+    color: var(--gray);
+    margin-top: 0.2rem;
+  }
+
+  figure {
+    position: absolute;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  figure img {
+    height: 40px;
+    width: 40px;  
+  }
+
+  section.unread {
+    background: var(--very-light-gray);
+  }
+
+  section.unread .error {
+    background: var(--red-clr);
+    display: inline-block;
+    width: 5px;
+    padding: 4px;
+    border-radius: 50%;
+  }
+
+</style>
+  
+		
